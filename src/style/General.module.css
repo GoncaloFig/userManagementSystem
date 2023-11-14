@@ -1,0 +1,18 @@
+/* General.module.css */
+
+.inputFields {
+    background-color: white;
+    border-radius: 7px;
+  }
+
+.pagination{
+    background-color: white;
+    border-radius: 15px;
+}
+
+.dashboardTable{
+    border-radius: 15px;
+}
+.headerNav {
+    background-color: var(--nav-background);
+}

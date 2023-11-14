@@ -3,12 +3,41 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Dashbord from './components/Dashbord';
+import HomePage from './components/HomePage';
+import WelcomePage from './components/WelcomePage';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App/>,
+    children:[
+      {
+        path: "/",
+        element: <HomePage/>
+      },
+      {
+        path: "dashboard",
+        element: <Dashbord dashAction={"d"}/>,
+        children: [
+          {
+            path: "newUser",
+            element: <Dashbord dashAction={"n"}/>,
+          },
+        ]
+      },
+      {
+        path: "welcomePage",
+        element: <WelcomePage/>,
+      }
+    ],
+  },
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <RouterProvider router={router}/>
 );
 
 // If you want to start measuring performance in your app, pass a function
