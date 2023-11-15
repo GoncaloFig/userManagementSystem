@@ -13,7 +13,7 @@ export const apiNewUserService = async ({fname, job}, token) => {
           'Content-Type': 'application/json',
         },
       });
-      debugger
+      
       if (!response.ok) {
         throw new Error('Failed to sign in');
       }

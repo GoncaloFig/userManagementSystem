@@ -10,7 +10,7 @@ const DashboardNewUser = ({setAllUsers, allUsers, displayedUsers, setDisplayedUs
     
     const [combinedUsers, setCombinedUsers] = useState(allUsers);
     const [token, setToken] = useState(localStorage.getItem('userToken'));
-    debugger
+    
     const fnameRef = useRef(null);
     const lnameRef = useRef(null);
     const jobRef = useRef(null);

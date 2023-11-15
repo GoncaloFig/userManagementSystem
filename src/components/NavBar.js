@@ -67,6 +67,11 @@ const NavBar = ({isAuthenticated, setIsAuthenticated,isAdmin,setIsAdmin}) => {
   }
 
   const handleLogOut = () => {
+    setToLightMode();
+    setSwitchSelected(false);
+    setNavColor({
+      backgroundColor: '#1976D2',
+    });
     localStorage.clear();
     setIsAuthenticated(false);
     setIsAdmin(false);

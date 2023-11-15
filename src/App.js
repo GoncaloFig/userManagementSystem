@@ -20,9 +20,13 @@ function App() {
   const [userToken, setUserToken] = useState(localStorage.getItem('userToken'));
 //debugger
   const themeSelected = localStorage.getItem("theme");
-  if(themeSelected){
+  //debugger
+  if(themeSelected == 'dark'){
     document.querySelector("body").setAttribute('data-theme', themeSelected);
     //document.querySelector("AppBar").setAttribute('data-theme', themeSelected);
+  }else{
+    document.querySelector("body").setAttribute('data-theme', 'light');
+    //document.querySelector(".nav").setAttribute('data-theme', 'light');
   }
 
   useEffect(() => {
