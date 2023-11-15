@@ -8,6 +8,7 @@ import Dashbord from './components/Dashbord';
 import HomePage from './components/HomePage';
 import WelcomePage from './components/WelcomePage';
 import ProtectedRoute from './components/ProtectedRoute';
+import './App.css';
 
 const router = createBrowserRouter([
   {

@@ -2,7 +2,9 @@
   text-align: center;
   background-color: var(--color-background);
   color: var(--color-body);
-  min-height: 150vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -43,4 +45,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.fullvh{
+  min-height: 100vh;
 }

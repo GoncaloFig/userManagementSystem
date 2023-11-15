@@ -47,7 +47,7 @@ const DashboardNewUser = ({setAllUsers, allUsers, displayedUsers, setDisplayedUs
 
     return (
         <Container maxWidth="sm" style={{ marginTop: '50px', marginBottom: '50px' }}>
-            <Typography variant="h4" align="center" gutterBottom>
+            <Typography variant="h5" align="center" gutterBottom>
                 Create new user
             </Typography>
             <form onSubmit={handleSubmitNewUser}>

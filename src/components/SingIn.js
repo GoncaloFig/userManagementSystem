@@ -1,11 +1,14 @@
-import React , {useEffect} from 'react';
+import React , {useEffect, useContext} from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
 import { BrowserRouter, Route, Switch, Navigate,useNavigate  } from 'react-router-dom';
 import { apiSignInService } from '../services/apiSignInService';
 import commonStyle from '../style/General.module.css';
 
+import {AuthContext} from '../App';
+
 const SignIn = (props) => {
 
+    const [isAuthenticated, setIsAuthenticated] = useContext(AuthContext);
     const navigate = useNavigate();
 
     const storedToken = localStorage.getItem('userToken');
@@ -27,7 +30,8 @@ const SignIn = (props) => {
         
        // try{
             const resData = await apiSignInService(email, password);
-            navigate('/dashboard');
+            setIsAuthenticated(true);
+            navigate('/welcomePage');
             console.log(resData);
             return resData.token;
       //  }

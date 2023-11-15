@@ -16,7 +16,7 @@ const SignUp = (props) => {
     const storedToken = localStorage.getItem('userToken');
     useEffect(() => {
      
-     if(storedToken){
+    if(storedToken){
        console.log('Auto logged, token:', storedToken);
        navigate('/welcomePage');
      }
@@ -91,6 +91,7 @@ const SignUp = (props) => {
                     margin="normal"
                     variant="outlined"
                     className={commonStyle.inputFields}
+                    data-emailfield="email"
                     required
                     />
 
@@ -102,6 +103,7 @@ const SignUp = (props) => {
                     margin="normal"
                     variant="outlined"
                     className={`${commonStyle.inputFields}`}
+                    data-passwordfield="passwordfield"
                     onFocus={handlePasswordFocus}
                     required
                     />
@@ -114,6 +116,7 @@ const SignUp = (props) => {
                     margin="normal"
                     variant="outlined"
                     className={`${commonStyle.inputFields}`}
+                    data-confpasswordfield="confpasswordfield"
                     onFocus={handlePasswordFocus}
                     required
                     />
@@ -125,6 +128,8 @@ const SignUp = (props) => {
                     color="primary"
                     fullWidth
                     style={{ marginTop: '16px' }}
+                    data-signupbtn="signupbtn"
+                    className='signupbtn'
                     >
                     Sign Up
                     </Button>

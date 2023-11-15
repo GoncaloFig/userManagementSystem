@@ -27,7 +27,7 @@ const Dashbord = (props) => {
     
     return (
       <Container maxWidth="sm" style={{ marginTop: '50px' }}>
-        <Typography variant="h2" align="center" gutterBottom data-testDashTitle="dashboard-title">
+        <Typography variant="h3" align="center" gutterBottom data-testDashTitle="dashboard-title">
           Dashboard
         </Typography>
         <DashbordListUsers setAllUsers={setAllUsers} allUsers={allUsers} displayedUsers={displayedUsers} setDisplayedUsers={setDisplayedUsers} totalPages={totalPages} setTotalPages={setTotalPages}/>

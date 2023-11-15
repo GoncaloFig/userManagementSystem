@@ -91,7 +91,7 @@ const NavBar = ({isAuthenticated, setIsAuthenticated}) => {
               <Button color="inherit" onClick={handleLogOut}>
                 Log Out
               </Button>
-              <FormControlLabel className='darkModeSwitch'
+              <FormControlLabel className='darkModeSwitch' data-switch="darkModeSwitch"
                 checked={switchSelected}
                 // style={{ ...(token ? { marginLeft: '' } : {marginLeft: 'auto'}) }}
                 control={<MaterialUISwitch sx={{ m: 1 }} />}
