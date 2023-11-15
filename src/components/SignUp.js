@@ -11,6 +11,7 @@ import {AuthContext} from '../App';
 const SignUp = (props) => {
 
     const [isAuthenticated, setIsAuthenticated] = useContext(AuthContext);
+    const [showError, setShowError] = useState(false);
 
     const storedToken = localStorage.getItem('userToken');
     useEffect(() => {
@@ -49,11 +50,12 @@ const SignUp = (props) => {
         }
         //debugger;
         if (password !== confirmPassword) {
-          setFormError({
-            ...inputError,
-            confirmPassword: "Password and confirm password should be the equal",
-          });
-          return;
+            setShowError(true);
+            setFormError({
+                ...inputError,
+                confirmPassword: "Password and confirm password should be the equal",
+            });
+            return;
         }else{
             handleSignUp(email,password);
         }
@@ -70,6 +72,9 @@ const SignUp = (props) => {
         return resData.token;
     }
 
+    const handlePasswordFocus = () => {
+        setShowError(false);
+    };
 
     return (
         <React.Fragment>
@@ -96,7 +101,8 @@ const SignUp = (props) => {
                     name="password"
                     margin="normal"
                     variant="outlined"
-                    className={commonStyle.inputFields}
+                    className={`${commonStyle.inputFields}`}
+                    onFocus={handlePasswordFocus}
                     required
                     />
 
@@ -107,10 +113,11 @@ const SignUp = (props) => {
                     name="confirmPassword"
                     margin="normal"
                     variant="outlined"
-                    className={commonStyle.inputFields}
+                    className={`${commonStyle.inputFields}`}
+                    onFocus={handlePasswordFocus}
                     required
                     />
-                    <p className={`${signStyle.password_error}`}>{formError.confirmPassword}</p>
+                    {showError && <p className={`${signStyle.password_error}`}>{formError.confirmPassword}</p>}
 
                     <Button
                     type="submit"

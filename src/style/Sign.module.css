@@ -1,3 +1,21 @@
 .password_error{
-    color: red;
+    color: white;
+    border: 1px solid grey;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #ec8c8c;
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 2s; /* Firefox < 16 */
+     -ms-animation: fadein 2s; /* Internet Explorer */
+      -o-animation: fadein 2s; /* Opera < 12.1 */
+         animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.error_background{
+    background-color: red;
 }

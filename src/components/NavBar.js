@@ -80,8 +80,11 @@ const NavBar = ({isAuthenticated, setIsAuthenticated}) => {
           User Management System
         </Typography>
           {isAuthenticated && (
-            <React.Fragment>
-              <Button color="inherit" component={Link} to="/dashboard" style={{ marginLeft: 'auto' }}>
+            <div style={{ marginLeft: 'auto' }}>
+              <Button color="inherit" component={Link} to="/welcomePage" >
+                Welcome Page
+              </Button>
+              <Button color="inherit" component={Link} to="/dashboard" >
                 Dashboard
               </Button>
                 
@@ -94,7 +97,7 @@ const NavBar = ({isAuthenticated, setIsAuthenticated}) => {
                 control={<MaterialUISwitch sx={{ m: 1 }} />}
                 onChange={toggleThemeChange}
               />
-            </React.Fragment>
+            </div>
           )
           }
           {/* <Switch {...label} onChange={toggleThemeChange} color="default" /> */}
