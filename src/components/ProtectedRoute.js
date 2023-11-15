@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Outlet, Navigate } from 'react-router-dom'
 
 const ProtectedRoute = ({element}) => {
-    let auth = {'token': false}
+    //debugger
     const [authenticated, setAuthenticated] = useState(localStorage.getItem('userToken') ? true : false);
     //debugger
     return(

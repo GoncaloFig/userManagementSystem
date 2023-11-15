@@ -2,14 +2,15 @@ import React, { useState, useRef } from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
 import { apiNewUserService } from '../services/apiNewUserService';
 import { BrowserRouter, Route, Switch, Navigate,useNavigate  } from 'react-router-dom';
-import commonStyle from '../style/General.module.css';
+import commonStyle from '../style/General.module.scss';
 
 const DashboardNewUser = ({setAllUsers, allUsers, displayedUsers, setDisplayedUsers, totalPages,setTotalPages}) => {
 
     const navigate = useNavigate();
     
     const [combinedUsers, setCombinedUsers] = useState(allUsers);
-
+    const [token, setToken] = useState(localStorage.getItem('userToken'));
+    debugger
     const fnameRef = useRef(null);
     const lnameRef = useRef(null);
     const jobRef = useRef(null);
@@ -23,10 +24,11 @@ const DashboardNewUser = ({setAllUsers, allUsers, displayedUsers, setDisplayedUs
             lname: lnameRef.current.value,
             job: jobRef.current.value,
             email: emailRef.current.value,
+            //userToken: {token},
         }
         console.log('allUsers-> ', allUsers);
         //debugger;
-        const response = await apiNewUserService(userInput);
+        const response = await apiNewUserService(userInput, token);
         
         const newUserObj = {id: response.id, email: userInput.email, first_name: userInput.fname, last_name: userInput.lname, avatar: 'example'}
         //setAllUsers(allUsers => [...allUsers, newUserObj]);
@@ -61,6 +63,11 @@ const DashboardNewUser = ({setAllUsers, allUsers, displayedUsers, setDisplayedUs
                     // onChange={handleChange}
                     margin="normal"
                     required
+                    InputProps={{
+                        inputProps: {
+                            maxLength: 30,
+                        },
+                    }}
                 />
                 <TextField
                     fullWidth
@@ -72,6 +79,12 @@ const DashboardNewUser = ({setAllUsers, allUsers, displayedUsers, setDisplayedUs
                     // onChange={handleChange}
                     margin="normal"
                     required
+                    InputProps={{
+                        inputProps: {
+                            maxLength: 30,
+                        },
+                    }}
+                    
                 />
                 <TextField
                     fullWidth
@@ -83,6 +96,11 @@ const DashboardNewUser = ({setAllUsers, allUsers, displayedUsers, setDisplayedUs
                     // onChange={handleChange}
                     margin="normal"
                     required
+                    InputProps={{
+                        inputProps: {
+                            maxLength: 20,
+                        },
+                    }}
                 />
                 <TextField
                     fullWidth
@@ -93,6 +111,11 @@ const DashboardNewUser = ({setAllUsers, allUsers, displayedUsers, setDisplayedUs
                     // value={formData.name}
                     // onChange={handleChange}
                     margin="normal"
+                    InputProps={{
+                        inputProps: {
+                            maxLength: 60,
+                        },
+                    }}
                     required
                 />
                 <Button type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>

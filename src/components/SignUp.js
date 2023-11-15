@@ -4,7 +4,7 @@ import { useNavigate  } from 'react-router-dom';
 import { apiSignUpService } from '../services/apiSignUpService';
 import { useOutletContext } from "react-router-dom";
 import signStyle from '../style/Sign.module.css';
-import commonStyle from '../style/General.module.css';
+import commonStyle from '../style/General.module.scss';
 
 import {AuthContext} from '../App';
 
@@ -53,7 +53,7 @@ const SignUp = (props) => {
             setShowError(true);
             setFormError({
                 ...inputError,
-                confirmPassword: "Password and confirm password should be the equal",
+                confirmPassword: "Password and confirm password should be equal",
             });
             return;
         }else{
@@ -93,6 +93,11 @@ const SignUp = (props) => {
                     className={commonStyle.inputFields}
                     data-emailfield="email"
                     required
+                    InputProps={{
+                        inputProps: {
+                            maxLength: 60,
+                        },
+                    }}
                     />
 
                     <TextField
@@ -105,6 +110,11 @@ const SignUp = (props) => {
                     className={`${commonStyle.inputFields}`}
                     data-passwordfield="passwordfield"
                     onFocus={handlePasswordFocus}
+                    InputProps={{
+                        inputProps: {
+                            maxLength: 100,
+                        },
+                    }}
                     required
                     />
 
@@ -119,6 +129,11 @@ const SignUp = (props) => {
                     data-confpasswordfield="confpasswordfield"
                     onFocus={handlePasswordFocus}
                     required
+                    InputProps={{
+                        inputProps: {
+                            maxLength: 100,
+                        },
+                    }}
                     />
                     {showError && <p className={`${signStyle.password_error}`}>{formError.confirmPassword}</p>}
 
@@ -141,6 +156,7 @@ const SignUp = (props) => {
                     fullWidth
                     style={{ marginTop: '16px' }}
                     onClick={props.changeSignUpSignIn}
+                    data-gotosignin="goToSignIn"
                     >
                     Go to Sign In
                     </Button>

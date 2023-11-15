@@ -2,6 +2,7 @@ import * as globalConstants from '../common/constants';
 
 export const apiSignInService = async (email, password) => {
     try {
+      //debugger
       const response = await fetch(`${globalConstants.REQRES_BASE_URL}/login`, {
         method: 'POST',
         body: JSON.stringify({

@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { Container, Typography, Button, Pagination, TextField  } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { apiAllUsersService, apiAllUsersServiceCombinedPages } from '../services/apiAllUsersService';
 import CircularProgress from '@mui/material/CircularProgress';
-import DeleteIcon from '@mui/icons-material/Delete';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
-import Modal from '@mui/material/Modal';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditNoteIcon from '@mui/icons-material/EditNote';import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import modalStyle from '../style/Modal.module.css';
-import commonStyle from '../style/General.module.css';
+import commonStyle from '../style/General.module.scss';
+import {AuthContext} from '../App';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,6 +19,8 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [maxPerPage, setMaxPerPage] = useState(6);
+    const [userToken] = useContext(AuthContext);
+    const [token, setToken] = useState(localStorage.getItem('userToken'));
 
     //Refs
     // let idRef = useRef('');
@@ -53,7 +55,7 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers
             setLoading(true);
             //setTimeout(async () => {
                 
-                const response = await apiAllUsersServiceCombinedPages(currentPage);
+                const response = await apiAllUsersServiceCombinedPages(token);
                 //sconst response = await apiAllUsersService(currentPage);
                 //debugger;
                 //setAllUsers(response.data);
@@ -135,7 +137,8 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers
     };
 
     return (
-        <div className="container mt-4">
+        <React.Fragment>
+        <Container className={commonStyle.usersTableContainer}>
             <table className={`table ${commonStyle.dashboardTable}`} id="usersTable" data-testUsersTable="usersTable">
                 <thead>
                     <tr>
@@ -154,8 +157,8 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers
                         <td>{row.email}</td>
                         <td>{row.first_name}</td>
                         <td>{row.last_name}</td>
-                        <td><BorderColorIcon style={{color: 'black', cursor: 'pointer'}} onClick={() => handleOpenModal(row)}></BorderColorIcon></td>
-                        <td><DeleteIcon style={{color: 'red', cursor: 'pointer'}} onClick={() => deleteUser(row.id)}></DeleteIcon></td>
+                        <td><EditNoteIcon className={commonStyle.editUserBtn} onClick={() => handleOpenModal(row)}></EditNoteIcon></td>
+                        <td><DeleteForeverIcon className={commonStyle.deleteUserBtn} onClick={() => deleteUser(row.id)}></DeleteForeverIcon></td>
                     </tr>
                     ))}
                 </tbody>
@@ -167,13 +170,7 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers
 
                 </React.Fragment>
             }
-            <Pagination
-                className={commonStyle.pagination}
-                count={Math.ceil(allUsers.length / maxPerPage)}
-                page={currentPage}
-                onChange={handlePageChange}
-                color="primary"
-            />
+            
             {/* <button type="button" className='btn btn-primary' onClick={goToNewUserForm}>New User</button> */}
             <Modal
                 align="center"
@@ -197,7 +194,15 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers
                 </form>       
                 </Box>
             </Modal>
-        </div>
+        </Container>
+        <Pagination
+        className={commonStyle.pagination}
+        count={Math.ceil(allUsers.length / maxPerPage)}
+        page={currentPage}
+        onChange={handlePageChange}
+        color="primary"
+        />
+        </React.Fragment>
     )
 }
 

@@ -2,10 +2,11 @@ describe('Dashboard test', () => {
   it('Dashboard title checked', () => {
     //const apiUrl = 'https://reqres.in/api/register';
     cy.visit('http://localhost:3000');
-    cy.get('[data-emailfield="email"]').type('michael.lawson@reqres.in');
-    cy.get('[data-passwordfield="passwordfield"]').type('password123@');
-    cy.get('[data-confpasswordfield="confpasswordfield"]').type('password123@');
-    cy.get('[data-signupbtn="signupbtn"]').click()
+    cy.get('[data-gotosignin="goToSignIn"]').click()
+    cy.get('[data-signinmailtxt="signInEmail"]').type('admin@admin.com');
+    cy.get('[data-signinmailpass="signInPass"]').type('admin');
+    cy.wait(500);
+    cy.get('[data-signinbtn="signInbtn"]').click()
     cy.wait(2000);
     cy.get('[data-btndashboard="goToDashboard"]').click()
     

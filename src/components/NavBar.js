@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Switch,{ SwitchProps } from '@mui/material/Switch';
-import commonStyle from '../style/General.module.css';
+import commonStyle from '../style/General.module.scss';
 import { Navigate,useNavigate  } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-const NavBar = ({isAuthenticated, setIsAuthenticated}) => {
+const NavBar = ({isAuthenticated, setIsAuthenticated,isAdmin,setIsAdmin}) => {
 
   const navigate = useNavigate();
 
@@ -69,6 +69,7 @@ const NavBar = ({isAuthenticated, setIsAuthenticated}) => {
   const handleLogOut = () => {
     localStorage.clear();
     setIsAuthenticated(false);
+    setIsAdmin(false);
     navigate('/');
   }
 
@@ -84,10 +85,11 @@ const NavBar = ({isAuthenticated, setIsAuthenticated}) => {
               <Button color="inherit" component={Link} to="/welcomePage" >
                 Welcome Page
               </Button>
+              {isAdmin && 
               <Button color="inherit" component={Link} to="/dashboard" >
                 Dashboard
               </Button>
-                
+              }
               <Button color="inherit" onClick={handleLogOut}>
                 Log Out
               </Button>

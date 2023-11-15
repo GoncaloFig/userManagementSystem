@@ -17,11 +17,11 @@ export const apiAllUsersService = async (page) => {
     };
 };
 
-export const apiAllUsersServiceCombinedPages = async () => {
+export const apiAllUsersServiceCombinedPages = async (userToken) => {
     try {
       // Make requests for pages 1 and 2
-      const responsePage1 = await fetch(`${globalConstants.REQRES_BASE_URL}/users?page=1`);
-      const responsePage2 = await fetch(`${globalConstants.REQRES_BASE_URL}/users?page=2`);
+      const responsePage1 = await fetch(`${globalConstants.REQRES_BASE_URL}/users?page=1&userToken=`+ userToken);
+      const responsePage2 = await fetch(`${globalConstants.REQRES_BASE_URL}/users?page=2&userToken=`+ userToken);
   
       // Check if each request is successful
       if (!responsePage1.ok || !responsePage2.ok) {

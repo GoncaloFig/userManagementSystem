@@ -1,0 +1,51 @@
+/* General.module.css */
+
+.inputFields {
+    background-color: white;
+    border-radius: 7px;
+  }
+
+.pagination{
+    background-color: white;
+    border-radius: 20px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.dashboardTable{
+    width: 80%;
+}
+
+.usersTableContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //height: 100vh;
+
+    table{
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .editUserBtn{
+        color: black;
+        cursor: pointer;
+        transform: scale(1.3);
+    }
+    
+    .deleteUserBtn{
+        color: #b50606;
+        cursor: pointer;
+    }
+}
+
+
+
+/* .nav {
+    background-color: var(--nav-background);
+}
+
+.divTeste{
+    background-color: darkgoldenrod;
+} */

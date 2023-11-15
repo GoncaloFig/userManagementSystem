@@ -16,7 +16,9 @@ export const AuthContext = React.createContext()
 function App() {
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem('userToken') == 'adminToken12345');
+  const [userToken, setUserToken] = useState(localStorage.getItem('userToken'));
+//debugger
   const themeSelected = localStorage.getItem("theme");
   if(themeSelected){
     document.querySelector("body").setAttribute('data-theme', themeSelected);
@@ -36,8 +38,8 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
-      <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated]}>
+      <NavBar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>
+      <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated, isAdmin, setIsAdmin, userToken]}>
         <Outlet/>
       </AuthContext.Provider>
     </div>
