@@ -1,11 +1,23 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
 import { BrowserRouter, Route, Switch, Navigate,useNavigate  } from 'react-router-dom';
 import { apiSignInService } from '../services/apiSignInService';
+import commonStyle from '../style/General.module.css';
 
 const SignIn = (props) => {
 
     const navigate = useNavigate();
+
+    const storedToken = localStorage.getItem('userToken');
+    useEffect(() => {
+     
+     if(storedToken){
+       console.log('Auto logged, token:', storedToken);
+       navigate('/welcomePage');
+     }
+ 
+    },[]
+    );
 
     const handleSignIn = async (event) => {
         event.preventDefault();
@@ -39,6 +51,7 @@ const SignIn = (props) => {
                     name="email"
                     margin="normal"
                     variant="outlined"
+                    className={commonStyle.inputFields}
                     required
                     />
 
@@ -49,6 +62,7 @@ const SignIn = (props) => {
                     name="password"
                     margin="normal"
                     variant="outlined"
+                    className={commonStyle.inputFields}
                     required
                     />
 

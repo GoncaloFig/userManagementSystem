@@ -4,36 +4,42 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch, Navigate, useNavigate } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SignIn from './components/SingIn';
+import React from 'react';
 import Dashbord from './components/Dashbord';
 import HomePage from './components/HomePage';
 import { Outlet } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import ProtectedRoute from './components/ProtectedRoute';
 
+export const AuthContext = React.createContext()
 
 function App() {
   const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const themeSelected = localStorage.getItem("theme");
   if(themeSelected){
     document.querySelector("body").setAttribute('data-theme', themeSelected);
+    //document.querySelector("AppBar").setAttribute('data-theme', themeSelected);
   }
 
-  const storedToken = localStorage.getItem('userToken');
-   useEffect(() => {
-    
+  useEffect(() => {
+    const storedToken = localStorage.getItem('userToken');
     if(storedToken){
       console.log('Auto logged, token:', storedToken);
-      navigate('/welcomePage');
+      setIsAuthenticated(true);
     }
-
+    //debugger
    },[]
-   );
+  );
    
 
   return (
     <div className="App">
-      <NavBar className="NavBar"/>
-      <Outlet/>
+      <NavBar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+      <AuthContext.Provider value={[isAuthenticated, setIsAuthenticated]}>
+        <Outlet/>
+      </AuthContext.Provider>
     </div>
   );
 }

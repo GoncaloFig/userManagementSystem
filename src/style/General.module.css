@@ -7,12 +7,19 @@
 
 .pagination{
     background-color: white;
-    border-radius: 15px;
+    border-radius: 20px;
+    padding: 5px;
 }
 
 .dashboardTable{
-    border-radius: 15px;
+    border-radius: 20px;
+    background-color: rebeccapurple;
+    
 }
-.headerNav {
+/* .nav {
     background-color: var(--nav-background);
 }
+
+.divTeste{
+    background-color: darkgoldenrod;
+} */

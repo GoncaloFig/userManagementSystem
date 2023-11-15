@@ -25,3 +25,9 @@ code {
   --color-body: white;
   --nav-background: #242526;
 }
+
+[data-themenav="dark"] {
+  --color-background: #18191a;
+  --color-body: white;
+  --nav-background: #242526;
+}

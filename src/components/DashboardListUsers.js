@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Container, Typography, Button, Pagination, TextField  } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { apiAllUsersService } from '../services/apiAllUsersService';
+import { apiAllUsersService, apiAllUsersServiceCombinedPages } from '../services/apiAllUsersService';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -12,14 +12,14 @@ import commonStyle from '../style/General.module.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const DashbordListUsers = ({setDashAction, setAllUsers, allUsers}) => {
+const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers, setDisplayedUsers, totalPages,setTotalPages}) => {
     //debugger;
     const navigate = useNavigate();
     const location = useLocation();
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [totalPages, setTotalPages] = useState(0);
-    
+    const [maxPerPage, setMaxPerPage] = useState(6);
+
     //Refs
     // let idRef = useRef('');
     // let fnameRef = useRef('');
@@ -51,24 +51,47 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers}) => {
     useEffect(() => {
         const fetchAllUsers = async () => {
             setLoading(true);
-            setTimeout(async () => {
-                const response = await apiAllUsersService(currentPage);
+            //setTimeout(async () => {
+                
+                const response = await apiAllUsersServiceCombinedPages(currentPage);
+                //sconst response = await apiAllUsersService(currentPage);
                 //debugger;
-                setAllUsers(response.data);
-                console.log('->',response);
-                setTotalPages(response.total_pages);
+                //setAllUsers(response.data);
+                setAllUsers(response);
+                console.log('->',allUsers);
+                //setTotalPages(response.total_pages);
+                setTotalPages(response.length / maxPerPage);
+                const firstIndex = (currentPage - 1) * maxPerPage;
+                const lastIndex = firstIndex + maxPerPage
+                setDisplayedUsers(allUsers.slice(firstIndex, lastIndex));
                 setLoading(false);
-            }, 1000);
+                //debugger
+           // }, 500);
         }
         fetchAllUsers();
-    },[currentPage]);
-    //debugger;
+    },[]);
+    
+    useEffect(() => {
+         const firstIndex = (currentPage - 1) * maxPerPage;
+         const lastIndex = firstIndex + maxPerPage
+         setDisplayedUsers(allUsers.slice(firstIndex, lastIndex));
+         //debugger;
+    }, [currentPage,allUsers])
+
+
     if(loading){
         return <CircularProgress />
     }
     
+    // const handlePageChange = (event, value) => {
+    //     setCurrentPage(value);
+    // };
     const handlePageChange = (event, value) => {
+        //debugger;
         setCurrentPage(value);
+        const firstIndex = (value - 1) * maxPerPage;
+        const lastIndex = firstIndex + maxPerPage
+        setDisplayedUsers(allUsers.slice(firstIndex, lastIndex));
     };
 
     const goToNewUserForm = () => {
@@ -81,6 +104,9 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers}) => {
     const deleteUser = (id) => {
         //debugger;
         const newUsersList = allUsers.filter((user) => user.id !== id);
+        if(displayedUsers.length == 1){
+            setCurrentPage(prevPage => prevPage -1)
+        }
         setAllUsers(newUsersList);
     }
 
@@ -110,7 +136,7 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers}) => {
 
     return (
         <div className="container mt-4">
-            <table className={`table ${commonStyle.dashboardTable}`}>
+            <table className={`table ${commonStyle.dashboardTable}`} id="usersTable" data-testUsersTable="usersTable">
                 <thead>
                     <tr>
                     <th>ID</th>
@@ -122,21 +148,28 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {allUsers?.map((row) => (
+                    {displayedUsers.map((row) => (
                     <tr key={row.id}>
                         <td>{row.id}</td>
                         <td>{row.email}</td>
                         <td>{row.first_name}</td>
                         <td>{row.last_name}</td>
-                        <td><DeleteIcon style={{color: 'red', cursor: 'pointer'}} onClick={() => deleteUser(row.id)}></DeleteIcon></td>
                         <td><BorderColorIcon style={{color: 'black', cursor: 'pointer'}} onClick={() => handleOpenModal(row)}></BorderColorIcon></td>
+                        <td><DeleteIcon style={{color: 'red', cursor: 'pointer'}} onClick={() => deleteUser(row.id)}></DeleteIcon></td>
                     </tr>
                     ))}
                 </tbody>
             </table>
+            {displayedUsers.length < 1 && 
+                <React.Fragment>
+                    <Typography align="center">No users to display...</Typography>
+                
+
+                </React.Fragment>
+            }
             <Pagination
                 className={commonStyle.pagination}
-                count={Math.ceil(totalPages)}
+                count={Math.ceil(allUsers.length / maxPerPage)}
                 page={currentPage}
                 onChange={handlePageChange}
                 color="primary"

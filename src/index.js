@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Dashbord from './components/Dashbord';
 import HomePage from './components/HomePage';
 import WelcomePage from './components/WelcomePage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -15,21 +16,21 @@ const router = createBrowserRouter([
     children:[
       {
         path: "/",
-        element: <HomePage/>
+        element: <HomePage />
       },
       {
         path: "dashboard",
-        element: <Dashbord dashAction={"d"}/>,
+        element: <ProtectedRoute element={<Dashbord />}/>,
         children: [
           {
             path: "newUser",
-            element: <Dashbord dashAction={"n"}/>,
+            element: <Dashbord />,
           },
         ]
       },
       {
         path: "welcomePage",
-        element: <WelcomePage/>,
+        element: <ProtectedRoute element={<WelcomePage/>}/>,
       }
     ],
   },

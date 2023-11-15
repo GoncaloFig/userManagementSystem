@@ -1,10 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
 import { useNavigate  } from 'react-router-dom';
 import { apiSignUpService } from '../services/apiSignUpService';
-import signCss from '../style/Sign.module.css';
+import { useOutletContext } from "react-router-dom";
+import signStyle from '../style/Sign.module.css';
+import commonStyle from '../style/General.module.css';
+
+import {AuthContext} from '../App';
 
 const SignUp = (props) => {
+
+    const [isAuthenticated, setIsAuthenticated] = useContext(AuthContext);
+
+    const storedToken = localStorage.getItem('userToken');
+    useEffect(() => {
+     
+     if(storedToken){
+       console.log('Auto logged, token:', storedToken);
+       navigate('/welcomePage');
+     }
+ 
+    },[]
+    );
 
     const navigate = useNavigate();
 
@@ -34,7 +51,7 @@ const SignUp = (props) => {
         if (password !== confirmPassword) {
           setFormError({
             ...inputError,
-            confirmPassword: "Password and confirm password should be same",
+            confirmPassword: "Password and confirm password should be the equal",
           });
           return;
         }else{
@@ -47,11 +64,12 @@ const SignUp = (props) => {
         
         const resData = await apiSignUpService(email, password);
         
-  
+        setIsAuthenticated(true);
         navigate('/welcomePage');
         console.log(resData);
         return resData.token;
     }
+
 
     return (
         <React.Fragment>
@@ -67,6 +85,7 @@ const SignUp = (props) => {
                     name="email"
                     margin="normal"
                     variant="outlined"
+                    className={commonStyle.inputFields}
                     required
                     />
 
@@ -77,6 +96,7 @@ const SignUp = (props) => {
                     name="password"
                     margin="normal"
                     variant="outlined"
+                    className={commonStyle.inputFields}
                     required
                     />
 
@@ -87,8 +107,10 @@ const SignUp = (props) => {
                     name="confirmPassword"
                     margin="normal"
                     variant="outlined"
+                    className={commonStyle.inputFields}
                     required
                     />
+                    <p className={`${signStyle.password_error}`}>{formError.confirmPassword}</p>
 
                     <Button
                     type="submit"
@@ -111,7 +133,6 @@ const SignUp = (props) => {
                     Go to Sign In
                     </Button>
                 </form>
-                <p className={`${signCss.password_error}`}>{formError.confirmPassword}</p>
             </Container>
         </React.Fragment>
 

@@ -29,10 +29,10 @@ const WelcomePage = (props) => {
 
     return (
       <Container maxWidth="sm" style={{ marginTop: '50px' }}>
-        <Typography variant="h2" align="center" gutterBottom>
+        <Typography variant="h2" align="center" data-testWelcomeTitle="welcome-title" gutterBottom>
           Welcome {actualUser ? actualUser.first_name : 'Guest'}
         </Typography>
-        <Button type="button" variant="contained" color="primary" onClick={goToDashboard} style={{ marginTop: '16px' }}>
+        <Button type="button" variant="contained" color="primary" onClick={goToDashboard} data-btnDashboard="goToDashboard" style={{ marginTop: '16px' }}>
             Go to Dashboard
         </Button>
       </Container>

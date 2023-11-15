@@ -4,7 +4,7 @@ import { apiNewUserService } from '../services/apiNewUserService';
 import { BrowserRouter, Route, Switch, Navigate,useNavigate  } from 'react-router-dom';
 import commonStyle from '../style/General.module.css';
 
-const DashboardNewUser = ({setAllUsers, allUsers}) => {
+const DashboardNewUser = ({setAllUsers, allUsers, displayedUsers, setDisplayedUsers, totalPages,setTotalPages}) => {
 
     const navigate = useNavigate();
     
@@ -17,18 +17,26 @@ const DashboardNewUser = ({setAllUsers, allUsers}) => {
 
     const handleSubmitNewUser = async(event) => {
         event.preventDefault();
+        //debugger;
         const userInput = {
             fname: fnameRef.current.value,
             lname: lnameRef.current.value,
             job: jobRef.current.value,
             email: emailRef.current.value,
         }
-        console.log('allUsers-> ', allUsers.data);
+        console.log('allUsers-> ', allUsers);
         //debugger;
         const response = await apiNewUserService(userInput);
         
         const newUserObj = {id: response.id, email: userInput.email, first_name: userInput.fname, last_name: userInput.lname, avatar: 'example'}
-        setAllUsers(prevDataList => [...prevDataList, newUserObj])
+        //setAllUsers(allUsers => [...allUsers, newUserObj]);
+        //setDisplayedUsers(allUsers);
+
+        setAllUsers((allUsers) => [...allUsers, newUserObj]);
+        //setDisplayedUsers((prevDisplayedUsers) => [...prevDisplayedUsers, newUserObj]);
+        console.log('displayusers: ', displayedUsers);
+        console.log('allusers: ', allUsers);
+        setTotalPages(allUsers.length / 6);
 
         fnameRef.current.value = '';
         lnameRef.current.value = '';
