@@ -14,7 +14,7 @@ export const apiSignUpService = async (email, password) => {
       });
   
       if (!response.ok) {
-        throw new Error('Failed to sign in');
+        throw new Error('Failed to sign up');
       }
 
       const responseData  = await response.json();

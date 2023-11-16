@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import modalStyle from '../style/Modal.module.css';
 import commonStyle from '../style/General.module.scss';
 import {AuthContext} from '../App';
+import {apiDeleteUsersService} from '../services/apideleteUserService';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -103,8 +104,9 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers
         navigate(newPath);
     }
 
-    const deleteUser = (id) => {
+    const deleteUser = async(id) => {
         //debugger;
+        const response = await apiDeleteUsersService(id);
         const newUsersList = allUsers.filter((user) => user.id !== id);
         if(displayedUsers.length == 1){
             setCurrentPage(prevPage => prevPage -1)
