@@ -21,11 +21,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    //height: 100vh;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 
     table{
         width: 100%;
         border-collapse: collapse;
+        min-width: 45vw;
+        overflow: hidden;
+        border-radius: 6px;
     }
 
     .editUserBtn{

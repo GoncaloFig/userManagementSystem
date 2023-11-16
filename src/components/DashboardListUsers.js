@@ -138,7 +138,7 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers
 
     return (
         <React.Fragment>
-        <Container className={commonStyle.usersTableContainer}>
+        <div className={commonStyle.usersTableContainer}>
             <table className={`table ${commonStyle.dashboardTable}`} id="usersTable" data-testUsersTable="usersTable">
                 <thead>
                     <tr>
@@ -194,7 +194,7 @@ const DashbordListUsers = ({setDashAction, setAllUsers, allUsers, displayedUsers
                 </form>       
                 </Box>
             </Modal>
-        </Container>
+        </div>
         <Pagination
         className={commonStyle.pagination}
         count={Math.ceil(allUsers.length / maxPerPage)}
